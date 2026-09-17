@@ -30,16 +30,15 @@
         }
       ]
     },
-
     {
       "class": "VI",
       "subject": "Science",
       "topic": "Food",
       "activity_name": "Test for Carbohydrates (Starch)",
       "activity_details": "Place bread slice, potato slice, and soaked chickpea seeds on separate plates. Add 2-3 drops of iodine solution. Observe blue-black color change indicating the presence of starch in bread and potato.",
-      "activity_path":[
+      "activity_path": [
         {
-          "label":"Test for Carbohydrates",
+          "label": "Test for Carbohydrates",
           "path": "activities/Test for Carbohydrates/index.html"
         }
       ]
@@ -62,14 +61,26 @@
       "subject": "Science",
       "topic": "Food",
       "activity_name": "Test for Fats",
-      "activity_details": "Place peanuts, dry coconut pieces, and rice grains on separate white paper sheets. Crush them by folding the paper. Oily patches on the paper indicate the presence of fats in peanuts and dry coconut."
+      "activity_details": "Place peanuts, dry coconut pieces, and rice grains on separate white paper sheets. Crush them by folding the paper. Oily patches on the paper indicate the presence of fats in peanuts and dry coconut.",
+      "activity_path": [
+        {
+          "label": "Test for Fats",
+          "path": "activities/test-for-fats/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
       "subject": "Science",
       "topic": "Food",
       "activity_name": "Observation of Stomata in Leaves",
-      "activity_details": "Tear the lower epidermis of a leaf (e.g., balsam). Place the peel on a slide with water, cover with a cover slip, and observe under a compound microscope. Identify the pores (stomata) surrounded by bean-shaped guard cells."
+      "activity_details": "Tear the lower epidermis of a leaf (e.g., balsam). Place the peel on a slide with water, cover with a cover slip, and observe under a compound microscope. Identify the pores (stomata) surrounded by bean-shaped guard cells.",
+      "activity_path": [
+        {
+          "label": "Microscope Simulator",
+          "path": "activities/observation-of-stomata/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
@@ -106,25 +117,37 @@
       "activity_name": "Classification of Materials",
       "activity_details": "Test materials (wax, glass, sugar, leaf, coal, wood, coin, sponge) for hardness, solubility in water, float/sink, and transparency (using a dark spot on paper).",
       "activity_path": [
-    {
-      "label": "Classification of Materials",
-      "path": "activities/classification_of_material/index.html"
-    }
-  ]
+        {
+          "label": "Classification of Materials",
+          "path": "activities/classification_of_material/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
       "subject": "Science",
       "topic": "Materials",
       "activity_name": "Separation of Mixture (Iron, Sand, Salt)",
-      "activity_details": "Use a magnet to separate iron filings. Add water to dissolve salt, filter to separate sand, and evaporate the filtrate to obtain common salt."
+      "activity_details": "Use a magnet to separate iron filings. Add water to dissolve salt, filter to separate sand, and evaporate the filtrate to obtain common salt.",
+      "activity_path": [
+        {
+          "label": "Separation Lab",
+          "path": "activities/separation-of-mixture/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
       "subject": "Science",
       "topic": "Materials",
       "activity_name": "Reversible and Irreversible Changes",
-      "activity_details": "Dissolve salt in water and then evaporate to get salt back (reversible). Cut a potato and try to join the pieces back (irreversible)."
+      "activity_details": "Dissolve salt in water and then evaporate to get salt back (reversible). Cut a potato and try to join the pieces back (irreversible).",
+      "activity_path": [
+        {
+          "label": "Reversible and Irreversible",
+          "path": "activities/reversible-irreversible-changes/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
@@ -385,12 +408,11 @@
       "activity_name": "Study Shadow Formation",
       "activity_details": "Use a torch, opaque/translucent/transparent objects, and a screen. Observe the formation and nature of shadows.",
       "activity_path": [
-    {
-      "label": "Light Detective Lab",
-      "path": "activities/light_detective_lab/index.html"
-    }
-  ]
-
+        {
+          "label": "Light Detective Lab",
+          "path": "activities/light_detective_lab/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
@@ -546,11 +568,11 @@
       "activity_name": "Testing with Indicators",
       "activity_details": "Test shampoo, lemon juice, vinegar, soap solution with litmus, turmeric, and china rose extract. Record colour changes to identify acidic/basic nature.",
       "activity_path": [
-    {
-      "label": "Testing with Indicators",
-      "path": "activities/Testing_with_Indicator/index.html"
-    }
-  ]
+        {
+          "label": "Testing with Indicators",
+          "path": "activities/Testing_with_Indicator/index.html"
+        }
+      ]
     },
     {
       "class": "VII",
@@ -567,10 +589,10 @@
       "activity_details": "Heat ice to melt it, then heat water to evaporate it. Condense water vapour on an inverted watch glass to get water back (physical changes).",
       "activity_path": [
         {
-            "label": "Ice Melting and Water Evaporation",
-            "path": "activities/Physical_and_Chemical_Changes/index.html"
+          "label": "Ice Melting and Water Evaporation",
+          "path": "activities/Physical_and_Chemical_Changes/index.html"
         }
-    ]
+      ]
     },
     {
       "class": "VII",
@@ -652,9 +674,8 @@
         {
           "label": "Water_Holding_Capacity",
           "path": "activities/Water Holding Capacity/index.html"
-
         }
-     ]
+      ]
     },
     {
       "class": "VII",
@@ -747,8 +768,8 @@
       "activity_details": "Observe polished/curved surfaces to classify as plane, convex, concave mirrors and convex, concave lenses.",
       "activity_path": [
         {
-          "label": "Identify Lenses and Mirrors",
-          "path": "activities/Identify Lenses and Mirrors/index.html"
+          "label": "Identify-Lens-Mirrors",
+          "path": "activities/Identify-Lens-Mirrors/index.html"
         }
       ]
     },
@@ -767,12 +788,12 @@
       "activity_details": "Place a candle at different distances from a convex lens and obtain the image on a screen.",
       "activity_path": [
         {
-        "label": "Convex Lens Image",
-        "path": "activities/Convex Lens Image/index.html"
+          "label": "Convex Lens Image",
+          "path": "activities/Convex Lens Image/index.html"
         }
-    ]
+      ]
     },
-       {
+    {
       "class": "VII",
       "subject": "Science",
       "topic": "Light",
@@ -782,8 +803,8 @@
         {
           "label": "Colour_Disc",
           "path": "activities/Colour Disc/index.html"
-       }
-     ]
+        }
+      ]
     },
     {
       "class": "VII",
@@ -1558,9 +1579,9 @@
       "topic": "Number System",
       "activity_name": "Even and Odd Numbers",
       "activity_details": "Two children pick pebbles turn by turn. Check if any pebble is left after equal distribution.",
-      "activity_path":[
+      "activity_path": [
         {
-          "label":"Even and Odd Numbers",
+          "label": "Even and Odd Numbers",
           "path": "activities/Even and Odd/index.html"
         }
       ]
@@ -1606,7 +1627,7 @@
       "topic": "Data Handling",
       "activity_name": "Collect, Display and Interpret Data",
       "activity_details": "Students drop pebbles in boxes labelled with their favourite fruits. Count and tabulate the data.",
-       "activity_path": [
+      "activity_path": [
         {
           "label": "Data Handling",
           "path": "activities/Data Handling/index.html"
@@ -1625,7 +1646,13 @@
       "subject": "Mathematics",
       "topic": "Magic Squares",
       "activity_name": "3x3 Magic Square (Magic Constant 15)",
-      "activity_details": "Draw a 3x3 grid with outside squares. Arrange numbers 1-9 and transfer the outside numbers to form a magic square."
+      "activity_details": "Draw a 3x3 grid with outside squares. Arrange numbers 1-9 and transfer the outside numbers to form a magic square.",
+      "activity_path": [
+        {
+          "label": "Magic Square Lab",
+          "path": "activities/magic-square/index.html"
+        }
+      ]
     },
     {
       "class": "VI",
@@ -1647,10 +1674,10 @@
       "topic": "Geometry",
       "activity_name": "Identify 2-D Shapes in 3-D Shapes",
       "activity_details": "Trace the faces of 3D objects (chalk box, bottle cap, etc.) to identify 2D shapes.",
-      "activity_path":[
+      "activity_path": [
         {
-          "label":"2D-3D Shape",
-          "path":"activities/Identify 2-D Shape in 3-D Shape/index.html"
+          "label": "2D-3D Shape",
+          "path": "activities/Identify 2-D Shape in 3-D Shape/index.html"
         }
       ]
     },

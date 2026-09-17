@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Class VI Mathematics: 3x3 Magic Square (Magic Constant 15)</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-bg: #eef2ff;
+      --accent: #4f46e5;
+      --success: #10b981;
+      --error: #ef4444;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --card-shadow: 0 12px 32px rgba(99, 102, 241, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e0e7ff 0%, #fdf4ff 50%, #f8fafc 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .lab-card {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: var(--card-shadow);
+      max-width: 820px;
+      width: 100%;
+      padding: 24px;
+      margin: auto;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--primary-bg);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #c7d2fe;
+    }
+
+    h1 {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-top: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
+      background: #f8fafc;
+      padding: 5px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 9px 12px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stage-container {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+
+    .inst-box {
+      background: #ffffff;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    /* Grid & Puzzle Styles */
+    .magic-board {
+      display: grid;
+      grid-template-columns: repeat(3, 72px) 60px;
+      grid-template-rows: repeat(3, 72px) 60px;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto;
+      max-width: 380px;
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px solid #e0e7ff;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.08);
+    }
+
+    .cell {
+      width: 72px;
+      height: 72px;
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--accent);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+    }
+
+    .cell.filled {
+      background: #ffffff;
+      border: 2px solid #818cf8;
+      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.15);
+      transform: scale(1.02);
+    }
+
+    .cell.center-cell {
+      border-color: #f59e0b;
+    }
+
+    .cell.selected {
+      border-color: #4f46e5;
+      background: #eef2ff;
+      outline: 3px solid #c7d2fe;
+    }
+
+    .sum-indicator {
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+      transition: all 0.3s ease;
+    }
+
+    .sum-indicator.match {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #047857;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    }
+
+    .sum-indicator.mismatch {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #b91c1c;
+    }
+
+    .sum-indicator span.label {
+      font-size: 9px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .number-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 16px 0;
+    }
+
+    .num-tile {
+      width: 52px;
+      height: 52px;
+      background: #ffffff;
+      border: 2px solid #c7d2fe;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+
+    .num-tile:hover:not(.used) {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 6px 12px rgba(99,102,241,0.2);
+    }
+
+    .num-tile.used {
+      opacity: 0.35;
+      background: #f1f5f9;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: #4338ca; }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+    .btn-outline:hover { background: #f8fafc; border-color: #cbd5e1; }
+
+    .btn-success {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    /* Diamond Method Visualizer */
+    .diamond-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 54px);
+      grid-template-rows: repeat(5, 54px);
+      gap: 6px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    .d-cell {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 800;
+      transition: all 0.4s ease;
+    }
+
+    .d-cell.empty {
+      background: transparent;
+    }
+
+    .d-cell.inner {
+      background: #ffffff;
+      border: 2px solid #818cf8;
+      color: var(--accent);
+    }
+
+    .d-cell.outer {
+      background: #fef3c7;
+      border: 2px dashed #f59e0b;
+      color: #b45309;
+    }
+
+    .d-cell.highlight {
+      transform: scale(1.12);
+      box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+      background: #6366f1;
+      color: #ffffff;
+      border-color: #4f46e5;
+    }
+
+    .card-info {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      margin-top: 14px;
+    }
+
+    .quiz-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .quiz-option {
+      display: block;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin: 6px 0;
+      cursor: pointer;
+      font-size: 13.5px;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-option:hover {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+
+    .quiz-option.correct {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: #15803d;
+      font-weight: 700;
+    }
+
+    .quiz-option.wrong {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #b91c1c;
+    }
+
+    .banner-win {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 16px;
+      border-radius: 14px;
+      text-align: center;
+      margin-top: 14px;
+      display: none;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="lab-card">
+  <div class="header">
+    <div>
+      <span class="badge">Class VI • Mathematics</span>
+      <h1>3x3 Magic Square (Constant = 15)</h1>
+      <div class="subtitle">Discover ancient mathematical symmetry, outside-square transfer method, and algebra.</div>
+    </div>
+    <a href="../../index.html" class="btn btn-outline" style="text-decoration:none; font-size:12px; padding:6px 12px;">← Back to Hub</a>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('play')">🎮 Interactive Puzzle</button>
+    <button class="tab-btn" onclick="switchTab('method')">📐 Diamond Method</button>
+    <button class="tab-btn" onclick="switchTab('math')">💡 Why Constant is 15?</button>
+    <button class="tab-btn" onclick="switchTab('quiz')">📝 Quick Quiz</button>
+  </div>
+
+  <!-- TAB 1: INTERACTIVE PUZZLE -->
+  <div id="tab-play" class="tab-content active">
+    <div class="stage-container">
+      <div class="inst-box">
+        🎯 <strong>Goal:</strong> Place numbers <strong>1 to 9</strong> into the 3×3 grid so that every <strong>row</strong>, every <strong>column</strong>, and both <strong>main diagonals</strong> add up to exactly <strong>15</strong>!
+      </div>
+
+      <div style="text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:8px;">
+        Click a cell in the grid, then click a number below to place it.
+      </div>
+
+      <div class="magic-board">
+        <!-- Row 1 -->
+        <div class="cell" id="c00" onclick="selectCell(0,0)"></div>
+        <div class="cell" id="c01" onclick="selectCell(0,1)"></div>
+        <div class="cell" id="c02" onclick="selectCell(0,2)"></div>
+        <div class="sum-indicator" id="r0"><span class="label">R1</span><span id="r0-val">0</span></div>
+
+        <!-- Row 2 -->
+        <div class="cell" id="c10" onclick="selectCell(1,0)"></div>
+        <div class="cell center-cell" id="c11" onclick="selectCell(1,1)"></div>
+        <div class="cell" id="c12" onclick="selectCell(1,2)"></div>
+        <div class="sum-indicator" id="r1"><span class="label">R2</span><span id="r1-val">0</span></div>
+
+        <!-- Row 3 -->
+        <div class="cell" id="c20" onclick="selectCell(2,0)"></div>
+        <div class="cell" id="c21" onclick="selectCell(2,1)"></div>
+        <div class="cell" id="c22" onclick="selectCell(2,2)"></div>
+        <div class="sum-indicator" id="r2"><span class="label">R3</span><span id="r2-val">0</span></div>
+
+        <!-- Col sums and Diag sums -->
+        <div class="sum-indicator" id="c0"><span class="label">C1</span><span id="c0-val">0</span></div>
+        <div class="sum-indicator" id="c1"><span class="label">C2</span><span id="c1-val">0</span></div>
+        <div class="sum-indicator" id="c2"><span class="label">C3</span><span id="c2-val">0</span></div>
+        <div class="sum-indicator" id="diag"><span class="label">DIAG</span><span id="diag-val">0</span></div>
+      </div>
+
+      <div class="number-bank" id="numberBank">
+        <!-- 1 to 9 -->
+      </div>
+
+      <div class="banner-win" id="winBanner">
+        🎉 <strong>Magnificent! You solved the 3x3 Magic Square!</strong><br>
+        All 3 rows, 3 columns, and 2 diagonals sum up to exactly 15!
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="resetBoard()">🔄 Reset</button>
+        <button class="btn btn-outline" onclick="giveHint()">💡 Hint</button>
+        <button class="btn btn-primary" onclick="solveAutomatically()">✨ Auto Solve (Lo-Shu)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: DIAMOND / STAIRCASE METHOD -->
+  <div id="tab-method" class="tab-content">
+    <div class="stage-container">
+      <div class="inst-box">
+        <strong>The Staircase / Outside-Square Method:</strong><br>
+        Step 1: Add 4 outer auxiliary squares on the 4 sides of the 3×3 grid.<br>
+        Step 2: Place numbers 1-9 along 3 continuous diagonals.<br>
+        Step 3: Transfer outside numbers 3 units straight across to their opposite inner squares!
+      </div>
+
+      <div class="diamond-grid" id="diamondGrid">
+        <!-- 5x5 grid for step visualizer -->
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="setDiamondStep(1)">Step 1: Diagonals (1-9)</button>
+        <button class="btn btn-primary" onclick="setDiamondStep(2)">Step 2: Shift Outside Numbers</button>
+        <button class="btn btn-success" onclick="setDiamondStep(3)">Step 3: Magic 3x3 Formed!</button>
+      </div>
+
+      <div class="card-info" id="diamondExplanation">
+        <strong>Step 1:</strong> Notice how numbers 1, 2, 3 form the first diagonal; 4, 5, 6 form the center diagonal; and 7, 8, 9 form the third diagonal. Four numbers (1, 3, 7, 9) sit outside the 3×3 core.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: MATHEMATICAL PROOF -->
+  <div id="tab-math" class="tab-content">
+    <div class="stage-container">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="card-info">
+          <h3 style="color:var(--accent); font-size:16px; margin-bottom:8px;">1. Why Magic Constant S = 15?</h3>
+          <p style="font-size:13.5px; line-height:1.6; color:var(--text-main);">
+            • Sum of all numbers from 1 to 9:<br>
+            <code style="background:#eef2ff; padding:2px 6px; border-radius:4px; font-weight:700;">1 + 2 + 3 + ... + 9 = 45</code><br><br>
+            • In a 3×3 square, all numbers are divided equally across 3 rows.<br>
+            • Therefore, each row must sum to:<br>
+            <code style="background:#eef2ff; padding:2px 6px; border-radius:4px; font-weight:700; color:#4f46e5;">45 ÷ 3 = 15</code>
+          </p>
+        </div>
+
+        <div class="card-info">
+          <h3 style="color:var(--accent); font-size:16px; margin-bottom:8px;">2. Why Center Cell MUST be 5?</h3>
+          <p style="font-size:13.5px; line-height:1.6; color:var(--text-main);">
+            • 4 lines pass through the center cell <em>C</em>: Row 2, Col 2, and 2 diagonals.<br>
+            • Sum of these 4 lines = <code>4 × 15 = 60</code>.<br>
+            • This sum contains all 9 cells once, plus the center cell <em>3 extra times</em>:<br>
+            <code style="background:#eef2ff; padding:2px 6px; border-radius:4px; font-weight:700;">45 + 3C = 60 ➔ 3C = 15 ➔ C = 5</code>
+          </p>
+        </div>
+      </div>
+
+      <div class="card-info" style="margin-top:14px; background:#fffbeb; border-color:#fde68a;">
+        <h4 style="color:#b45309; font-size:14.5px; margin-bottom:6px;">🌟 Even & Odd Number Rule:</h4>
+        <p style="font-size:13px; color:#92400e; line-height:1.5;">
+          • All 4 <strong>even numbers</strong> (2, 4, 6, 8) must occupy the <strong>4 corners</strong>.<br>
+          • All 4 <strong>odd numbers</strong> (1, 3, 7, 9) must occupy the <strong>4 edge centers</strong>.<br>
+          • The center is always the median odd number <strong>5</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: QUIZ -->
+  <div id="tab-quiz" class="tab-content">
+    <div class="stage-container">
+      <div class="quiz-card">
+        <p style="font-weight:700; font-size:14px; margin-bottom:8px;">Q1: What is the magic sum of any row, column, or diagonal in a 3×3 square with numbers 1 to 9?</p>
+        <div class="quiz-option" onclick="checkQ(this, false)">12</div>
+        <div class="quiz-option" onclick="checkQ(this, true)">15</div>
+        <div class="quiz-option" onclick="checkQ(this, false)">18</div>
+        <div class="quiz-option" onclick="checkQ(this, false)">45</div>
+      </div>
+
+      <div class="quiz-card">
+        <p style="font-weight:700; font-size:14px; margin-bottom:8px;">Q2: Which number must always occupy the exact center cell?</p>
+        <div class="quiz-option" onclick="checkQ(this, false)">1</div>
+        <div class="quiz-option" onclick="checkQ(this, false)">9</div>
+        <div class="quiz-option" onclick="checkQ(this, true)">5</div>
+        <div class="quiz-option" onclick="checkQ(this, false)">Any even number</div>
+      </div>
+
+      <div class="quiz-card">
+        <p style="font-weight:700; font-size:14px; margin-bottom:8px;">Q3: In a standard 3x3 magic square, which positions must contain the even numbers (2, 4, 6, 8)?</p>
+        <div class="quiz-option" onclick="checkQ(this, true)">The 4 corners</div>
+        <div class="quiz-option" onclick="checkQ(this, false)">The 4 side edges</div>
+        <div class="quiz-option" onclick="checkQ(this, false)">The center row only</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let grid = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ];
+  let selectedPos = null;
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('tab-' + tabId).classList.add('active');
+    if (tabId === 'method') initDiamondGrid();
+  }
+
+  function renderNumberBank() {
+    const bank = document.getElementById('numberBank');
+    bank.innerHTML = '';
+    const used = [];
+    for(let r=0; r<3; r++) {
+      for(let c=0; c<3; c++) {
+        if(grid[r][c] > 0) used.push(grid[r][c]);
+      }
+    }
+
+    for (let i = 1; i <= 9; i++) {
+      const tile = document.createElement('div');
+      tile.className = 'num-tile' + (used.includes(i) ? ' used' : '');
+      tile.innerText = i;
+      tile.onclick = () => placeNumber(i);
+      bank.appendChild(tile);
+    }
+  }
+
+  function selectCell(r, c) {
+    selectedPos = {r, c};
+    document.querySelectorAll('.cell').forEach(el => el.classList.remove('selected'));
+    document.getElementById(`c${r}${c}`).classList.add('selected');
+  }
+
+  function placeNumber(num) {
+    if (!selectedPos) {
+      // Find first empty cell
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+          if (grid[r][c] === 0) {
+            selectedPos = {r, c};
+            break;
+          }
+        }
+        if (selectedPos) break;
+      }
+    }
+    if (!selectedPos) return;
+
+    // Check if number already in grid, swap or clear
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 3; c++) {
+        if (grid[r][c] === num) grid[r][c] = 0;
+      }
+    }
+
+    grid[selectedPos.r][selectedPos.c] = num;
+    updateUI();
+  }
+
+  function updateUI() {
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 3; c++) {
+        const el = document.getElementById(`c${r}${c}`);
+        const val = grid[r][c];
+        el.innerText = val > 0 ? val : '';
+        if (val > 0) {
+          el.classList.add('filled');
+        } else {
+          el.classList.remove('filled');
+        }
+      }
+    }
+
+    // Check sums
+    let rSums = [0, 0, 0];
+    let cSums = [0, 0, 0];
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 3; c++) {
+        rSums[r] += grid[r][c];
+        cSums[c] += grid[r][c];
+      }
+    }
+
+    let d1 = grid[0][0] + grid[1][1] + grid[2][2];
+    let d2 = grid[0][2] + grid[1][1] + grid[2][0];
+
+    // Update row indicators
+    for (let r = 0; r < 3; r++) {
+      const el = document.getElementById(`r${r}`);
+      const valEl = document.getElementById(`r${r}-val`);
+      valEl.innerText = rSums[r];
+      el.className = 'sum-indicator ' + (rSums[r] === 15 ? 'match' : (rSums[r] > 0 ? 'mismatch' : ''));
+    }
+
+    // Update col indicators
+    for (let c = 0; c < 3; c++) {
+      const el = document.getElementById(`c${c}`);
+      const valEl = document.getElementById(`c${c}-val`);
+      valEl.innerText = cSums[c];
+      el.className = 'sum-indicator ' + (cSums[c] === 15 ? 'match' : (cSums[c] > 0 ? 'mismatch' : ''));
+    }
+
+    const diagEl = document.getElementById('diag');
+    const diagVal = document.getElementById('diag-val');
+    diagVal.innerText = `${d1}/${d2}`;
+    diagEl.className = 'sum-indicator ' + (d1 === 15 && d2 === 15 ? 'match' : (d1 > 0 || d2 > 0 ? 'mismatch' : ''));
+
+    renderNumberBank();
+
+    // Check complete win
+    const allFilled = grid.flat().every(v => v > 0);
+    const all15 = rSums.every(s => s === 15) && cSums.every(s => s === 15) && d1 === 15 && d2 === 15;
+
+    const winBanner = document.getElementById('winBanner');
+    if (allFilled && all15) {
+      winBanner.style.display = 'block';
+    } else {
+      winBanner.style.display = 'none';
+    }
+  }
+
+  function resetBoard() {
+    grid = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0]
+    ];
+    selectedPos = null;
+    document.querySelectorAll('.cell').forEach(el => el.classList.remove('selected'));
+    updateUI();
+  }
+
+  function giveHint() {
+    grid[1][1] = 5;
+    selectCell(0, 0);
+    updateUI();
+  }
+
+  function solveAutomatically() {
+    // Lo Shu Magic Square
+    grid = [
+      [4, 9, 2],
+      [3, 5, 7],
+      [8, 1, 6]
+    ];
+    updateUI();
+  }
+
+  // DIAMOND METHOD LOGIC
+  const diamondLayout = [
+    [0, 0, 1, 0, 0],
+    [0, 4, 0, 2, 0],
+    [7, 0, 5, 0, 3],
+    [0, 8, 0, 6, 0],
+    [0, 0, 9, 0, 0]
+  ];
+
+  function initDiamondGrid() {
+    setDiamondStep(1);
+  }
+
+  function setDiamondStep(step) {
+    const container = document.getElementById('diamondGrid');
+    container.innerHTML = '';
+    const exp = document.getElementById('diamondExplanation');
+
+    if (step === 1) {
+      exp.innerHTML = "<strong>Step 1 (Diagonals 1 to 9):</strong> Place 1,2,3 along diagonal 1. Place 4,5,6 along center diagonal. Place 7,8,9 along diagonal 3. The 4 yellow squares (1, 3, 7, 9) stick outside.";
+    } else if (step === 2) {
+      exp.innerHTML = "<strong>Step 2 (Shift Outside Numbers):</strong> Shift Top '1' ➔ Bottom slot. Shift Bottom '9' ➔ Top slot. Shift Right '3' ➔ Left slot. Shift Left '7' ➔ Right slot.";
+    } else {
+      exp.innerHTML = "<strong>Step 3 (Complete Magic Square):</strong> All 9 numbers now fit perfectly inside the 3×3 grid: [8, 1, 6], [3, 5, 7], [4, 9, 2]. Sum of every row, column and diagonal = 15!";
+    }
+
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 5; c++) {
+        const cell = document.createElement('div');
+        const isCore = (r >= 1 && r <= 3 && c >= 1 && c <= 3);
+        const val = diamondLayout[r][c];
+
+        if (val === 0 && !isCore) {
+          cell.className = 'd-cell empty';
+        } else if (isCore) {
+          cell.className = 'd-cell inner';
+          if (step === 1) {
+            cell.innerText = val > 0 ? val : '';
+          } else if (step === 2 || step === 3) {
+            // Fill shifted
+            let finalGrid = [
+              [8, 1, 6],
+              [3, 5, 7],
+              [4, 9, 2]
+            ];
+            cell.innerText = finalGrid[r-1][c-1];
+            cell.classList.add('highlight');
+          }
+        } else {
+          // Outside square
+          cell.className = 'd-cell outer';
+          cell.innerText = val;
+          if (step >= 2) {
+            cell.style.opacity = '0.3';
+            cell.style.textDecoration = 'line-through';
+          }
+        }
+        container.appendChild(cell);
+      }
+    }
+  }
+
+  function checkQ(btn, isCorrect) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.quiz-option').forEach(o => {
+      o.style.pointerEvents = 'none';
+    });
+    if (isCorrect) {
+      btn.classList.add('correct');
+      btn.innerHTML += '  ✅ Correct!';
+    } else {
+      btn.classList.add('wrong');
+      btn.innerHTML += '  ❌ Try again!';
+    }
+  }
+
+  // Init
+  updateUI();
+</script>
+
+</body>
+</html>
