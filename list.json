@@ -730,7 +730,13 @@
       "subject": "Science",
       "topic": "Motion and Time",
       "activity_name": "Average Speed",
-      "activity_details": "Mark a 50 m line, walk with normal gait, measure time, and calculate speed."
+      "activity_details": "Mark a 50 m line, walk with normal gait, measure time, and calculate speed.",
+      "activity_path": [
+        {
+          "label": "Average Speed",
+          "path": "activities/average-speed/index.html"
+        }
+      ]
     },
     {
       "class": "VII",
@@ -1729,7 +1735,13 @@
       "subject": "Mathematics",
       "topic": "Geometry",
       "activity_name": "Measurement of Angles",
-      "activity_details": "Fix plastic strips with a full protractor. Move one strip to form and measure different angles (acute, obtuse, right, straight, reflex)."
+      "activity_details": "Fix plastic strips with a full protractor. Move one strip to form and measure different angles (acute, obtuse, right, straight, reflex).",
+      "activity_path": [
+        {
+          "label": "Measurement of Angles",
+          "path": "activities/measurement-of-angles/index.html"
+        }
+      ]
     },
     {
       "class": "IX-X",

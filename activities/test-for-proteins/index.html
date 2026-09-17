@@ -2,896 +2,147 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Class VI Science: Test for Proteins (Biuret Test)</title>
-  <style>
-    /* ==========================================================================
-       PURE VANILLA CSS - HIGH-PREMIUM VIRTUAL SCIENCE LAB (RESPONSIVE & TOUCH)
-       ========================================================================== */
-    :root {
-      --primary: #6d28d9;
-      --primary-light: #8b5cf6;
-      --primary-bg: #f5f3ff;
-      --accent-violet: #7c3aed;
-      --accent-blue: #0284c7;
-      --accent-copper: #2563eb;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --card-shadow: 0 12px 32px rgba(109, 40, 217, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f3e8ff 0%, #e0f2fe 50%, #f1f5f9 100%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-    }
-
-    .lab-card {
-      background: #ffffff;
-      border-radius: 20px;
-      box-shadow: var(--card-shadow);
-      max-width: 720px;
-      width: 100%;
-      padding: 20px;
-      margin: auto;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
-
-    /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .badge {
-      display: inline-block;
-      background: var(--primary-bg);
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid #ddd6fe;
-    }
-
-    h1 {
-      font-size: 19px;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1.25;
-    }
-
-    .subtitle {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    /* Mode Switcher Tabs */
-    .nav-tabs {
-      display: flex;
-      gap: 8px;
-      margin: 14px 0 10px 0;
-      background: #f1f5f9;
-      padding: 4px;
-      border-radius: 12px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 8px 12px;
-      border: none;
-      background: transparent;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 13px;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active {
-      background: #ffffff;
-      color: var(--primary);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    }
-
-    /* Reagents Panel */
-    .reagents-panel {
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-    }
-
-    .reagents-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      letter-spacing: 0.4px;
-    }
-
-    .reagents-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-      .reagents-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .reagent-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-    }
-
-    .reagent-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--primary-light);
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.12);
-    }
-
-    .reagent-card.active {
-      border-color: var(--primary);
-      background: var(--primary-bg);
-    }
-
-    .reagent-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .bg-water { background: #e0f2fe; color: #0284c7; }
-    .bg-cuso4 { background: #dbeafe; color: #2563eb; }
-    .bg-naoh { background: #f1f5f9; color: #475569; }
-
-    .reagent-info h4 {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .reagent-info p {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Main Stage */
-    .lab-stage {
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 20px 14px 14px 14px;
-      position: relative;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* Samples Selector Bar */
-    .sample-selector {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .sample-btn {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-main);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .sample-btn:hover {
-      border-color: var(--primary-light);
-    }
-
-    .sample-btn.selected {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25);
-    }
-
-    /* Test Tube Stand & Rack */
-    .test-tube-area {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 180px;
-      position: relative;
-      margin-top: 10px;
-    }
-
-    /* Glass Test Tube */
-    .test-tube-container {
-      position: relative;
-      width: 54px;
-      height: 160px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.15s ease;
-    }
-
-    .dropper-animation-area {
-      position: absolute;
-      top: -45px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 50px;
-      opacity: 0;
-      transition: opacity 0.3s ease, top 0.3s ease;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .dropper-animation-area.active {
-      opacity: 1;
-      top: -35px;
-    }
-
-    .dropper-visual {
-      font-size: 28px;
-      text-align: center;
-      animation: bounceDropper 0.6s infinite alternate ease-in-out;
-    }
-
-    @keyframes bounceDropper {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-4px); }
-    }
-
-    .liquid-drop {
-      position: absolute;
-      left: 50%;
-      top: 25px;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 12px;
-      border-radius: 50%;
-      opacity: 0;
-      z-index: 9;
-    }
-
-    .liquid-drop.falling {
-      animation: dropFall 0.5s ease-in forwards;
-    }
-
-    @keyframes dropFall {
-      0% { top: 25px; opacity: 1; transform: translateX(-50%) scale(1); }
-      80% { opacity: 1; }
-      100% { top: 90px; opacity: 0; transform: translateX(-50%) scale(0.4); }
-    }
-
-    .test-tube-glass {
-      width: 36px;
-      height: 140px;
-      border: 3px solid rgba(203, 213, 225, 0.8);
-      border-top: none;
-      border-radius: 0 0 18px 18px;
-      background: rgba(248, 250, 252, 0.4);
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 2px 0 4px rgba(255,255,255,0.8), inset -2px 0 4px rgba(0,0,0,0.05);
-    }
-
-    .test-tube-rim {
-      width: 44px;
-      height: 8px;
-      background: #e2e8f0;
-      border-radius: 4px;
-      border: 1px solid #cbd5e1;
-      margin-bottom: -2px;
-      z-index: 2;
-    }
-
-    /* Liquid inside tube */
-    .liquid {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 0%;
-      background: #e2e8f0;
-      border-radius: 0 0 14px 14px;
-      transition: height 0.6s ease, background-color 0.8s ease;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .liquid-surface {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      margin-top: -3px;
-    }
-
-    .sediment-layer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 0px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 0 0 14px 14px;
-      transition: height 0.5s ease;
-    }
-
-    /* Tube Stand Base */
-    .tube-rack {
-      width: 140px;
-      height: 14px;
-      background: #cbd5e1;
-      border-radius: 6px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin-top: -4px;
-    }
-
-    /* Controls Bar */
-    .action-controls {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #ffffff;
-      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-violet);
-    }
-
-    .btn-secondary {
-      background: #f1f5f9;
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-secondary:hover {
-      background: #e2e8f0;
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    /* Instruction / Status Box */
-    .status-card {
-      background: #ffffff;
-      border: 1px solid #ddd6fe;
-      border-left: 4px solid var(--primary);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-top: 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .status-icon {
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .status-text h5 {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .status-text p {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* Observation Log Table */
-    .log-section {
-      margin-top: 16px;
-      display: none;
-    }
-
-    .log-section.active {
-      display: block;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-      text-align: left;
-    }
-
-    th {
-      background: #f8fafc;
-      color: var(--text-muted);
-      font-weight: 700;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border-color);
-      text-transform: uppercase;
-      font-size: 11px;
-    }
-
-    td {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-main);
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .tag-violet {
-      background: #f3e8ff;
-      color: #6d28d9;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 11px;
-    }
-
-    .tag-blue {
-      background: #e0f2fe;
-      color: #0369a1;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 11px;
-    }
-
-    /* Quiz Modal / Section */
-    .quiz-card {
-      background: #fcfaff;
-      border: 1px solid #ede9fe;
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 16px;
-      display: none;
-    }
-
-    .quiz-card.active {
-      display: block;
-    }
-
-    .quiz-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-
-    .option-btn {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 10px 12px;
-      margin: 6px 0;
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 12.5px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .option-btn:hover {
-      border-color: var(--primary-light);
-      background: var(--primary-bg);
-    }
-
-    .option-btn.correct {
-      background: #dcfce7;
-      border-color: #22c55e;
-      color: #15803d;
-      font-weight: 700;
-    }
-
-    .option-btn.incorrect {
-      background: #fee2e2;
-      border-color: #ef4444;
-      color: #b91c1c;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test for Proteins - Class VI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div class="lab-card">
-    <!-- Header -->
-    <div class="header">
+  <main class="app">
+    <header class="hero">
       <div>
-        <span class="badge">Class VI Science • Food</span>
-        <h1>Test for Proteins (Biuret Test)</h1>
-        <p class="subtitle">NCERT Activity: Detect proteins in food using Copper Sulphate & Caustic Soda solution.</p>
+        <p class="eyebrow">CLASS VI • SCIENCE • FOOD</p>
+        <h1>🔬 Test for Proteins</h1>
+        <p class="subtitle">Perform a virtual food test and find out whether a sample contains protein.</p>
       </div>
-    </div>
-
-    <!-- Mode Tabs -->
-    <div class="nav-tabs">
-      <button class="tab-btn active" id="tab-guided" onclick="switchTab('guided')">🧪 Guided Lab</button>
-      <button class="tab-btn" id="tab-free" onclick="switchTab('free')">🥼 Sandbox Mode</button>
-      <button class="tab-btn" id="tab-quiz" onclick="switchTab('quiz')">🧠 Quiz & Concept</button>
-    </div>
-
-    <!-- Reagents Control Bar -->
-    <div class="reagents-panel">
-      <div class="reagents-title">Chemical Reagents & Solutions</div>
-      <div class="reagents-grid">
-        <div class="reagent-card" id="reagent-water" onclick="addReagent('water')">
-          <div class="reagent-icon bg-water">💧</div>
-          <div class="reagent-info">
-            <h4>Water (H₂O)</h4>
-            <p id="count-water">Added: 0 drops</p>
-          </div>
-        </div>
-        <div class="reagent-card" id="reagent-cuso4" onclick="addReagent('cuso4')">
-          <div class="reagent-icon bg-cuso4">🧪</div>
-          <div class="reagent-info">
-            <h4>2% Copper Sulphate</h4>
-            <p id="count-cuso4">Added: 0 drops (Need 2)</p>
-          </div>
-        </div>
-        <div class="reagent-card" id="reagent-naoh" onclick="addReagent('naoh')">
-          <div class="reagent-icon bg-naoh">🧫</div>
-          <div class="reagent-info">
-            <h4>10% Caustic Soda</h4>
-            <p id="count-naoh">Added: 0 drops (Need 10)</p>
-          </div>
-        </div>
+      <div class="progress-wrap">
+        <span id="progressText">Step 1 of 6</span>
+        <div class="progress"><div id="progressBar"></div></div>
       </div>
-    </div>
+    </header>
 
-    <!-- Interactive Experiment Stage -->
-    <div class="lab-stage">
-      <!-- Food Sample Selector -->
-      <div class="sample-selector">
-        <button class="sample-btn selected" id="btn-gram" onclick="selectSample('gram')">🧆 Gram Seed Paste</button>
-        <button class="sample-btn" id="btn-egg" onclick="selectSample('egg')">🥚 Egg White Solution</button>
-        <button class="sample-btn" id="btn-banana" onclick="selectSample('banana')">🍌 Mashed Banana</button>
-        <button class="sample-btn" id="btn-water" onclick="selectSample('water')">💧 Pure Water (Control)</button>
+    <section class="card instructions">
+      <div class="step-badge" id="stepBadge">1</div>
+      <div>
+        <h2 id="instructionTitle">Choose a food sample</h2>
+        <p id="instructionText">Select Gram, Pea, or Banana to begin the virtual experiment.</p>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="card samples-card">
+        <h2>1. Choose your sample</h2>
+        <div class="sample-grid">
+          <button class="sample" data-sample="Gram">
+            <span class="food-icon">🫘</span>
+            <span>Gram</span>
+          </button>
+          <button class="sample" data-sample="Pea">
+            <span class="food-icon">🟢</span>
+            <span>Pea</span>
+          </button>
+          <button class="sample" data-sample="Banana">
+            <span class="food-icon">🍌</span>
+            <span>Banana</span>
+          </button>
+        </div>
+        <p class="selected-text">Selected: <strong id="selectedSample">None</strong></p>
       </div>
 
-      <!-- Test Tube Center Visual -->
-      <div class="test-tube-area">
-        <div class="test-tube-container" id="test-tube-wrapper">
-          <!-- Animated Dropper -->
-          <div class="dropper-animation-area" id="dropper-visual-container">
-            <div class="dropper-visual" id="dropper-emoji">💧</div>
-            <div class="liquid-drop" id="falling-drop"></div>
+      <div class="card experiment-card">
+        <div class="experiment-head">
+          <div>
+            <h2>2. Virtual experiment</h2>
+            <p>Complete each step in order.</p>
           </div>
+          <button id="resetBtn" class="ghost-btn">↻ Reset</button>
+        </div>
 
-          <div class="test-tube-rim"></div>
-          <div class="test-tube-glass">
-            <div class="liquid" id="tube-liquid">
-              <div class="liquid-surface"></div>
-              <div class="sediment-layer" id="tube-sediment"></div>
+        <div class="lab-area">
+          <div class="tube-stage">
+            <div class="tube-label" id="tubeLabel">Select a sample</div>
+            <div class="test-tube" id="testTube">
+              <div class="tube-rim"></div>
+              <div class="liquid" id="liquid"></div>
+              <div class="sample-inside" id="sampleInside"></div>
+              <div class="bubbles" id="bubbles"></div>
             </div>
+            <div class="tube-base"></div>
+          </div>
+
+          <div class="controls">
+            <button class="action-btn" id="grindBtn" disabled>
+              <span>①</span> Grind / Mash
+            </button>
+            <button class="action-btn" id="waterBtn" disabled>
+              <span>②</span> Add Water
+            </button>
+            <button class="action-btn" id="copperBtn" disabled>
+              <span>③</span> Add Copper Sulphate
+            </button>
+            <button class="action-btn" id="causticBtn" disabled>
+              <span>④</span> Add Caustic Soda
+            </button>
+          </div>
+        </div>
+
+        <div class="observation" id="observation">
+          <span>🔎</span>
+          <div>
+            <strong>Observation</strong>
+            <p id="observationText">Choose a sample to start the experiment.</p>
           </div>
         </div>
       </div>
-      <div style="display: flex; justify-content: center;">
-        <div class="tube-rack"></div>
+    </section>
+
+    <section class="card result-card hidden" id="resultCard">
+      <div class="result-icon" id="resultIcon">🧪</div>
+      <div class="result-content">
+        <p class="eyebrow">FINAL OBSERVATION</p>
+        <h2 id="resultTitle">Result</h2>
+        <p id="resultDescription"></p>
+        <div class="answer-question">
+          <h3>Does this food sample contain protein?</h3>
+          <div class="answer-buttons">
+            <button id="yesBtn" class="answer yes">Yes, it contains protein</button>
+            <button id="noBtn" class="answer no">No, it does not</button>
+          </div>
+          <p id="answerFeedback" class="feedback"></p>
+        </div>
       </div>
+    </section>
 
-      <!-- Action Buttons -->
-      <div class="action-controls">
-        <button class="btn btn-primary" id="btn-shake" onclick="shakeTube()">🫨 Shake Test Tube</button>
-        <button class="btn btn-secondary" onclick="resetLab()">🔄 Reset Experiment</button>
+    <section class="card comparison hidden" id="comparisonCard">
+      <h2>📋 Your test results</h2>
+      <p>Test another sample to compare your observations.</p>
+      <div id="resultsTable"></div>
+      <button id="quizBtn" class="primary-btn">Take the Quick Quiz →</button>
+    </section>
+
+    <section class="card quiz hidden" id="quizCard">
+      <div class="quiz-top">
+        <div>
+          <p class="eyebrow">KNOWLEDGE CHECK</p>
+          <h2>Quick Quiz</h2>
+        </div>
+        <span id="quizCounter">Question 1 of 4</span>
       </div>
-    </div>
+      <div id="quizContent"></div>
+    </section>
 
-    <!-- Status & Guidance Message -->
-    <div class="status-card" id="status-card">
-      <div class="status-icon" id="status-icon">💡</div>
-      <div class="status-text">
-        <h5 id="status-title">Step 1: Select a Food Sample</h5>
-        <p id="status-desc">Gram Seed Paste is loaded. Add water to make a thin suspension, then add 2 drops of Copper Sulphate.</p>
-      </div>
-    </div>
+    <section class="card completion hidden" id="completionCard">
+      <div class="completion-icon">🎉</div>
+      <h2>Experiment complete!</h2>
+      <p id="scoreText"></p>
+      <button id="restartBtn" class="primary-btn">↻ Try Again</button>
+    </section>
 
-    <!-- Observation Log -->
-    <div class="log-section active" id="log-section">
-      <div style="margin: 12px 0 6px 0; font-weight: 700; font-size: 13px; color: var(--text-main);">
-        📋 Observation Table
-      </div>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Food Item</th>
-              <th>Reagents Added</th>
-              <th>Color Observed</th>
-              <th>Protein Present?</th>
-            </tr>
-          </thead>
-          <tbody id="observation-rows">
-            <tr>
-              <td>Gram Seed Paste</td>
-              <td>Water + 2 drops CuSO₄ + 10 drops NaOH</td>
-              <td><span class="tag-violet">Violet / Purple</span></td>
-              <td><strong>YES (Contains Protein)</strong></td>
-            </tr>
-            <tr>
-              <td>Egg White Solution</td>
-              <td>Water + 2 drops CuSO₄ + 10 drops NaOH</td>
-              <td><span class="tag-violet">Deep Violet</span></td>
-              <td><strong>YES (Rich Protein)</strong></td>
-            </tr>
-            <tr>
-              <td>Mashed Banana</td>
-              <td>Water + 2 drops CuSO₄ + 10 drops NaOH</td>
-              <td><span class="tag-blue">Light Blue</span></td>
-              <td><strong>NO (Starch/Sugar)</strong></td>
-            </tr>
-            <tr>
-              <td>Pure Water</td>
-              <td>2 drops CuSO₄ + 10 drops NaOH</td>
-              <td><span class="tag-blue">Light Blue</span></td>
-              <td><strong>NO (Control)</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <footer>
+      <p>Virtual simulation for learning • In a real laboratory, chemical reagents should only be handled under teacher supervision.</p>
+    </footer>
+  </main>
 
-    <!-- Quiz & Concept Section -->
-    <div class="quiz-card" id="quiz-section">
-      <div class="quiz-title">🧠 Test Your Understanding</div>
-      <p style="font-size: 13px; margin-bottom: 12px;" id="quiz-question">
-        Q1: Which chemical solution turns violet when added to food containing protein?
-      </p>
-      <div id="quiz-options">
-        <button class="option-btn" onclick="checkQuiz(this, false)">A) Iodine Solution</button>
-        <button class="option-btn" onclick="checkQuiz(this, true)">B) Copper Sulphate + Caustic Soda (Biuret Reagent)</button>
-        <button class="option-btn" onclick="checkQuiz(this, false)">C) Hydrochloric Acid</button>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    /* ==========================================================================
-       LAB LOGIC & INTERACTION STATE
-       ========================================================================== */
-    const state = {
-      sample: 'gram',
-      waterDrops: 0,
-      cuso4Drops: 0,
-      naohDrops: 0,
-      isShaken: false,
-      mode: 'guided'
-    };
-
-    const samplesInfo = {
-      gram: { name: 'Gram Seed Paste', baseColor: '#fef3c7', sediment: true, protein: true },
-      egg: { name: 'Egg White Solution', baseColor: '#f1f5f9', sediment: false, protein: true },
-      banana: { name: 'Mashed Banana', baseColor: '#fef08a', sediment: true, protein: false },
-      water: { name: 'Pure Water', baseColor: '#f0f9ff', sediment: false, protein: false }
-    };
-
-    function selectSample(sampleKey) {
-      state.sample = sampleKey;
-      document.querySelectorAll('.sample-btn').forEach(btn => btn.classList.remove('selected'));
-      document.getElementById(`btn-${sampleKey}`).classList.add('selected');
-      resetLab(false);
-    }
-
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(`tab-${tabName}`).classList.add('active');
-      state.mode = tabName;
-
-      document.getElementById('quiz-section').classList.toggle('active', tabName === 'quiz');
-      document.getElementById('log-section').classList.toggle('active', tabName === 'guided' || tabName === 'free');
-    }
-
-    function addReagent(reagentType) {
-      const container = document.getElementById('dropper-visual-container');
-      const drop = document.getElementById('falling-drop');
-      const emoji = document.getElementById('dropper-emoji');
-
-      if (reagentType === 'water') {
-        state.waterDrops += 2;
-        emoji.innerText = '💧';
-        drop.style.backgroundColor = '#38bdf8';
-      } else if (reagentType === 'cuso4') {
-        state.cuso4Drops += 1;
-        emoji.innerText = '🧪';
-        drop.style.backgroundColor = '#2563eb';
-      } else if (reagentType === 'naoh') {
-        state.naohDrops += 2;
-        emoji.innerText = '🧫';
-        drop.style.backgroundColor = '#e2e8f0';
-      }
-
-      // Dropper animation
-      container.classList.add('active');
-      drop.classList.remove('falling');
-      void drop.offsetWidth; // trigger reflow
-      drop.classList.add('falling');
-
-      setTimeout(() => {
-        container.classList.remove('active');
-        updateTubeVisuals();
-      }, 500);
-    }
-
-    function shakeTube() {
-      const glass = document.getElementById('test-tube-wrapper');
-      glass.style.transform = 'rotate(12deg)';
-      setTimeout(() => glass.style.transform = 'rotate(-12deg)', 150);
-      setTimeout(() => glass.style.transform = 'rotate(8deg)', 300);
-      setTimeout(() => glass.style.transform = 'rotate(0deg)', 450);
-
-      state.isShaken = true;
-      updateTubeVisuals();
-    }
-
-    function updateTubeVisuals() {
-      const liquid = document.getElementById('tube-liquid');
-      const sediment = document.getElementById('tube-sediment');
-      const info = samplesInfo[state.sample];
-
-      // Update drops counter text
-      document.getElementById('count-water').innerText = `Added: ${state.waterDrops} drops`;
-      document.getElementById('count-cuso4').innerText = `Added: ${state.cuso4Drops} drops (Need 2)`;
-      document.getElementById('count-naoh').innerText = `Added: ${state.naohDrops} drops (Need 10)`;
-
-      // Calculate total height
-      const totalDrops = state.waterDrops + state.cuso4Drops + state.naohDrops + 5;
-      const fillHeight = Math.min(85, totalDrops * 4);
-      liquid.style.height = `${fillHeight}%`;
-
-      // Sediment layer visual
-      sediment.style.height = info.sediment ? '12px' : '0px';
-
-      // Color reaction logic (Biuret Reaction)
-      let currentColor = info.baseColor;
-      const statusTitle = document.getElementById('status-title');
-      const statusDesc = document.getElementById('status-desc');
-      const statusIcon = document.getElementById('status-icon');
-
-      if (state.cuso4Drops > 0 && state.naohDrops === 0) {
-        currentColor = '#93c5fd'; // Light blue from CuSO4
-        statusIcon.innerText = '🧪';
-        statusTitle.innerText = 'Step 2: Add Caustic Soda (NaOH)';
-        statusDesc.innerText = 'Copper Sulphate added. Now add 10 drops of Caustic Soda solution and shake well.';
-      } else if (state.cuso4Drops >= 2 && state.naohDrops >= 8) {
-        if (state.isShaken) {
-          if (info.protein) {
-            currentColor = state.sample === 'egg' ? '#581c87' : '#7c3aed'; // Deep Violet / Purple
-            statusIcon.innerText = '🎉';
-            statusTitle.innerText = `Result: Violet Color Observed!`;
-            statusDesc.innerText = `Success! The solution turned Violet/Purple. This confirms the presence of PROTEIN in ${info.name}!`;
-          } else {
-            currentColor = '#60a5fa'; // Stays light blue
-            statusIcon.innerText = 'ℹ️';
-            statusTitle.innerText = `Result: Solution Remains Blue`;
-            statusDesc.innerText = `No violet color change. ${info.name} does NOT contain protein (it contains carbohydrates or water).`;
-          }
-        } else {
-          statusIcon.innerText = '🫨';
-          statusTitle.innerText = 'Final Step: Shake the Test Tube!';
-          statusDesc.innerText = 'Click "Shake Test Tube" to thoroughly mix the reagents and observe the color change.';
-        }
-      }
-
-      liquid.style.backgroundColor = currentColor;
-    }
-
-    function resetLab(clearSample = true) {
-      state.waterDrops = 0;
-      state.cuso4Drops = 0;
-      state.naohDrops = 0;
-      state.isShaken = false;
-
-      if (clearSample) {
-        state.sample = 'gram';
-        document.querySelectorAll('.sample-btn').forEach(btn => btn.classList.remove('selected'));
-        document.getElementById('btn-gram').classList.add('selected');
-      }
-
-      document.getElementById('tube-liquid').style.height = '15%';
-      document.getElementById('tube-liquid').style.backgroundColor = samplesInfo[state.sample].baseColor;
-      
-      document.getElementById('status-icon').innerText = '💡';
-      document.getElementById('status-title').innerText = 'Step 1: Select & Prepare Sample';
-      document.getElementById('status-desc').innerText = 'Add 2 drops of Copper Sulphate solution, followed by 10 drops of Caustic Soda.';
-
-      updateTubeVisuals();
-    }
-
-    function checkQuiz(btn, isCorrect) {
-      const options = document.querySelectorAll('.option-btn');
-      options.forEach(b => b.disabled = true);
-      if (isCorrect) {
-        btn.classList.add('correct');
-        btn.innerText += '  ✅ Correct!';
-      } else {
-        btn.classList.add('incorrect');
-        btn.innerText += '  ❌ Incorrect';
-      }
-    }
-
-    // Initialize
-    updateTubeVisuals();
-  </script>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
 </body>
 </html>
